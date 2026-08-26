@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace agents — Dynasty 8</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2L21 8V16L12 22L3 16V8L12 2Z%27 fill=%27%230a0b0d%27 stroke=%27%23c9a05a%27 stroke-width=%271.4%27/%3E%3C/svg%3E">
+</head>
+<body>
+
+<!-- ============ ÉCRAN DE CONNEXION ============ -->
+<div class="ecran-connexion" id="ecran-connexion">
+  <div class="carte-connexion">
+    <div class="logo" style="justify-content:center;margin-bottom:22px;">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 8V16L12 22L3 16V8L12 2Z" stroke="#c9a05a" stroke-width="1.4"/>
+        <path d="M12 2V22M3 8L12 12L21 8M3 16L12 12L21 16" stroke="#c9a05a" stroke-width="1"/>
+      </svg>
+      Dynasty<span class="huit">8</span>
+    </div>
+
+    <div id="zone-message"></div>
+
+    <!-- Formulaire affiché uniquement au tout premier démarrage du site -->
+    <div id="bloc-premier-demarrage" class="cache">
+      <h3 style="text-align:center;">Bienvenue !</h3>
+      <p style="text-align:center;font-size:0.88rem;">Aucun compte n'existe encore. Créez le tout premier compte, celui de la Direction.</p>
+      <form id="formulaire-init">
+        <div class="champ">
+          <label for="init-pseudo">Votre pseudo</label>
+          <input type="text" id="init-pseudo" required maxlength="40" placeholder="Ex: Alexia Ferrero">
+        </div>
+        <button class="btn btn-or" style="width:100%;" type="submit">Créer mon accès</button>
+      </form>
+    </div>
+
+    <!-- Code généré après l'initialisation ou l'ajout d'un membre : à noter précieusement -->
+    <div id="bloc-code-genere" class="cache">
+      <h3 style="text-align:center;">Votre code d'accès</h3>
+      <p style="text-align:center;font-size:0.88rem;">Notez-le précieusement : il ne sera plus jamais affiché. C'est votre seul moyen de connexion.</p>
+      <div class="code-affiche" id="code-genere"></div>
+      <button class="btn btn-or" style="width:100%;" id="bouton-code-note">J'ai noté mon code, continuer</button>
+    </div>
+
+    <!-- Formulaire de connexion normal -->
+    <div id="bloc-connexion">
+      <p style="text-align:center;font-size:0.88rem;margin-bottom:20px;">Réservé aux agents Dynasty 8. Entrez votre code d'accès personnel.</p>
+      <form id="formulaire-connexion">
+        <div class="champ">
+          <label for="champ-code">Code d'accès</label>
+          <input type="text" id="champ-code" required placeholder="DYN-XXXX-XXXX-XXXX" autocomplete="off">
+        </div>
+        <button class="btn btn-or" style="width:100%;" type="submit" id="bouton-connexion">Se connecter</button>
+      </form>
+      <p style="text-align:center;margin-top:18px;"><a href="/" style="font-size:0.85rem;color:var(--text-faint);">← Retour au site</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ESPACE ADMINISTRATION (visible une fois connecté) ============ -->
+<div class="admin-shell">
+  <aside class="admin-barre-laterale">
+    <div class="logo" style="margin-bottom:24px;padding:0 8px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L21 8V16L12 22L3 16V8L12 2Z" stroke="#c9a05a" stroke-width="1.4"/>
+      </svg>
+      Dynasty<span class="huit">8</span>
+    </div>
+    <button class="lien-onglet actif" data-onglet="annonces">🏠 Annonces</button>
+    <button class="lien-onglet cache" data-onglet="membres" id="onglet-membres">👥 Équipe</button>
+    <a href="/" target="_blank">↗ Voir le site public</a>
+    <div style="margin-top:auto;padding-top:20px;border-top:1px solid var(--border);">
+      <p style="font-size:0.82rem;margin-bottom:10px;">Connecté en tant que <strong id="pseudo-connecte" style="color:var(--text);"></strong></p>
+      <button class="btn btn-fantome btn-petit" style="width:100%;" id="bouton-deconnexion">Se déconnecter</button>
+    </div>
+  </aside>
+
+  <main class="admin-contenu">
+    <!-- Onglet Annonces -->
+    <section id="panneau-annonces">
+      <div class="entete-admin">
+        <div>
+          <h2 style="margin-bottom:2px;">Annonces</h2>
+          <p style="margin:0;font-size:0.88rem;">Ajoutez, modifiez ou retirez les biens du catalogue.</p>
+        </div>
+        <button class="btn btn-or" id="bouton-nouveau-bien">+ Nouvelle annonce</button>
+      </div>
+      <div id="zone-message-annonces"></div>
+      <div style="overflow-x:auto;">
+        <table class="table-admin">
+          <thead>
+            <tr><th>Titre</th><th>Catégorie</th><th>Zone</th><th>Prix</th><th>Statut</th><th></th></tr>
+          </thead>
+          <tbody id="corps-table-biens"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Onglet Équipe (Direction uniquement) -->
+    <section id="panneau-membres" class="cache">
+      <div class="entete-admin">
+        <div>
+          <h2 style="margin-bottom:2px;">Équipe</h2>
+          <p style="margin:0;font-size:0.88rem;">Gérez les comptes d'accès de vos agents.</p>
+        </div>
+        <button class="btn btn-or" id="bouton-nouveau-membre">+ Nouvel agent</button>
+      </div>
+      <div id="zone-message-membres"></div>
+      <div style="overflow-x:auto;">
+        <table class="table-admin">
+          <thead>
+            <tr><th>Pseudo</th><th>Grade</th><th>Code</th><th>Statut</th><th>Dernière visite</th><th></th></tr>
+          </thead>
+          <tbody id="corps-table-membres"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- Modale de formulaire pour un bien -->
+<div class="modale-fond cache" id="modale-bien">
+  <div class="modale">
+    <div class="modale-entete">
+      <h3 id="titre-modale-bien">Nouvelle annonce</h3>
+      <button id="fermer-modale-bien">✕</button>
+    </div>
+    <div id="zone-message-modale-bien"></div>
+    <form id="formulaire-bien">
+      <input type="hidden" id="bien-id">
+      <div class="champ">
+        <label for="bien-titre">Titre de l'annonce</label>
+        <input type="text" id="bien-titre" required maxlength="120" placeholder="Ex: Loft moderne — Vinewood">
+      </div>
+      <div class="champ-deux">
+        <div class="champ">
+          <label for="bien-categorie">Catégorie</label>
+          <select id="bien-categorie">
+            <option value="interieur">Intérieur</option>
+            <option value="garage">Garage</option>
+            <option value="coherence">Cohérence</option>
+            <option value="exclusif">Exclusif</option>
+          </select>
+        </div>
+        <div class="champ">
+          <label for="bien-sous-categorie">Sous-catégorie (optionnel)</label>
+          <input type="text" id="bien-sous-categorie" maxlength="40" placeholder="meuble / non-meuble">
+        </div>
+      </div>
+      <div class="champ-deux">
+        <div class="champ">
+          <label for="bien-zone">Zone</label>
+          <input type="text" id="bien-zone" maxlength="60" placeholder="Ex: Roxwood, Vinewood, Cayo...">
+        </div>
+        <div class="champ">
+          <label for="bien-places">Places / chambres (optionnel)</label>
+          <input type="number" id="bien-places" min="0" step="1">
+        </div>
+      </div>
+      <div class="champ-deux">
+        <div class="champ">
+          <label for="bien-prix">Prix ($)</label>
+          <input type="number" id="bien-prix" min="0" step="1" required>
+        </div>
+        <div class="champ">
+          <label for="bien-transaction">Transaction</label>
+          <select id="bien-transaction">
+            <option value="vente">Vente</option>
+            <option value="location">Location (par semaine)</option>
+          </select>
+        </div>
+      </div>
+      <div class="champ">
+        <label for="bien-description">Description</label>
+        <textarea id="bien-description" maxlength="4000" placeholder="Décrivez le bien : superficie, atouts, équipements..."></textarea>
+      </div>
+      <div class="champ">
+        <label for="bien-images">Photos (une URL par ligne)</label>
+        <textarea id="bien-images" placeholder="https://...
+https://..."></textarea>
+        <p class="champ-aide">Astuce débutant : postez vos captures d'écran dans un salon Discord privé, faites clic-droit → « Copier le lien » sur l'image, puis collez ce lien ici (une adresse par ligne). La première ligne sera la photo principale.</p>
+      </div>
+      <div class="champ-deux">
+        <div class="champ champ-checkbox">
+          <input type="checkbox" id="bien-coup-de-coeur">
+          <label for="bien-coup-de-coeur" style="margin:0;">Mettre en « coup de cœur » (page d'accueil)</label>
+        </div>
+        <div class="champ champ-checkbox">
+          <input type="checkbox" id="bien-disponible" checked>
+          <label for="bien-disponible" style="margin:0;">Annonce visible sur le site</label>
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:22px;">
+        <button type="submit" class="btn btn-or" style="flex:1;">Enregistrer</button>
+        <button type="button" class="btn btn-danger cache" id="bouton-supprimer-bien">Supprimer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modale de formulaire pour un membre -->
+<div class="modale-fond cache" id="modale-membre">
+  <div class="modale" style="max-width:440px;">
+    <div class="modale-entete">
+      <h3 id="titre-modale-membre">Nouvel agent</h3>
+      <button id="fermer-modale-membre">✕</button>
+    </div>
+    <div id="zone-message-modale-membre"></div>
+    <div id="bloc-code-membre" class="cache">
+      <p style="font-size:0.88rem;">Communiquez ce code au nouvel agent. Il ne sera plus jamais affiché.</p>
+      <div class="code-affiche" id="code-membre-genere"></div>
+      <button class="btn btn-or" style="width:100%;" id="bouton-fermer-code-membre">Terminé</button>
+    </div>
+    <form id="formulaire-membre">
+      <input type="hidden" id="membre-id">
+      <div class="champ">
+        <label for="membre-pseudo">Pseudo</label>
+        <input type="text" id="membre-pseudo" required maxlength="40">
+      </div>
+      <div class="champ">
+        <label for="membre-grade">Grade</label>
+        <select id="membre-grade">
+          <option value="Agent">Agent</option>
+          <option value="Direction">Direction</option>
+        </select>
+      </div>
+      <div class="champ champ-checkbox" id="ligne-membre-actif">
+        <input type="checkbox" id="membre-actif" checked>
+        <label for="membre-actif" style="margin:0;">Compte actif</label>
+      </div>
+      <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap;">
+        <button type="submit" class="btn btn-or" style="flex:1;">Enregistrer</button>
+        <button type="button" class="btn btn-fantome cache" id="bouton-regenerer-code">Régénérer le code</button>
+        <button type="button" class="btn btn-danger cache" id="bouton-supprimer-membre">Supprimer</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script src="/layout.js"></script>
+<script src="/admin.js"></script>
+</body>
+</html>

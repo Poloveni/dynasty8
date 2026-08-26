@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Équipe — Dynasty 8</title>
+<meta name="description" content="Rencontrez l'équipe d'agents immobiliers Dynasty 8 à Los Santos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2L21 8V16L12 22L3 16V8L12 2Z%27 fill=%27%230a0b0d%27 stroke=%27%23c9a05a%27 stroke-width=%271.4%27/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="entete" id="site-entete"></header>
+
+<section class="hero" style="padding:70px 24px 50px;">
+  <div class="hero-etiquette">👥 Notre équipe</div>
+  <h1>Les visages de Dynasty 8</h1>
+  <p class="lead">Une équipe d'agents présents sur le terrain pour vous accompagner à chaque étape de votre projet immobilier.</p>
+</section>
+
+<section class="section serre">
+  <div class="conteneur">
+    <div class="grille-equipe" id="grille-equipe"></div>
+    <p class="champ-aide" style="text-align:center;margin-top:24px;">Équipe de démonstration — remplacez les noms et rôles dans <code>equipe.html</code> par les vrais membres de votre agence.</p>
+  </div>
+</section>
+
+<footer class="pied-page" id="site-pied"></footer>
+
+<script src="/layout.js"></script>
+<script>
+  initialiserLayout("equipe");
+
+  const EQUIPE = [
+    { nom: "Alexia Ferrero", role: "Directrice de l'agence" },
+    { nom: "Mika Duval", role: "Agent — Biens exclusifs" },
+    { nom: "Toni Reyes", role: "Agent — Intérieurs" },
+    { nom: "Sasha Cole", role: "Agent — Garages" },
+    { nom: "Nova Bianchi", role: "Conseillère investissement" },
+    { nom: "Eliot Marchetti", role: "Agent — Cohérences" },
+  ];
+
+  document.getElementById("grille-equipe").innerHTML = EQUIPE.map((m) => `
+    <div class="carte-membre">
+      <div class="avatar">${m.nom.split(" ").map((p) => p[0]).join("")}</div>
+      <h3>${m.nom}</h3>
+      <span class="role">${m.role}</span>
+    </div>`).join("");
+</script>
+</body>
+</html>

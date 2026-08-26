@@ -1,0 +1,13 @@
+{
+  "name": "dynasty8",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Site de l'agence immobilière Dynasty 8 (serveur RP FlashbackFA)",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.0.0"
+  }
+}

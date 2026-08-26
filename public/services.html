@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Dynasty 8</title>
+<meta name="description" content="Découvrez les services proposés par l'agence Dynasty 8 : achat, location, gestion locative et conseil en investissement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2L21 8V16L12 22L3 16V8L12 2Z%27 fill=%27%230a0b0d%27 stroke=%27%23c9a05a%27 stroke-width=%271.4%27/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="entete" id="site-entete"></header>
+
+<section class="hero" style="padding:70px 24px 50px;">
+  <div class="hero-etiquette">✦ Nos services</div>
+  <h1>Un accompagnement complet, du premier contact aux clés en main</h1>
+  <p class="lead">Que vous cherchiez un premier logement ou souhaitiez agrandir votre patrimoine, l'équipe Dynasty 8 vous accompagne à chaque étape.</p>
+</section>
+
+<section class="section serre">
+  <div class="conteneur">
+    <div class="grille-services">
+      <div class="carte-service">
+        <div class="icone">🏠</div>
+        <h3>Vente & location</h3>
+        <p>Un catalogue mis à jour en continu d'intérieurs, garages et biens exclusifs, avec visite accompagnée par un agent.</p>
+      </div>
+      <div class="carte-service">
+        <div class="icone">🔑</div>
+        <h3>Remise des clés express</h3>
+        <p>Une fois votre dossier validé, la remise des clés est effectuée sous 24h par l'un de nos agents.</p>
+      </div>
+      <div class="carte-service">
+        <div class="icone">📈</div>
+        <h3>Conseil en investissement</h3>
+        <p>Nos agents vous aident à identifier les biens à fort potentiel selon votre budget et vos objectifs.</p>
+      </div>
+      <div class="carte-service">
+        <div class="icone">🛡️</div>
+        <h3>Gestion & sécurisation</h3>
+        <p>Suivi de vos biens, mise en relation avec des prestataires de confiance et options de sécurisation renforcée.</p>
+      </div>
+      <div class="carte-service">
+        <div class="icone">💼</div>
+        <h3>Biens professionnels</h3>
+        <p>Locaux commerciaux et garages grande capacité pour développer votre activité à Los Santos.</p>
+      </div>
+      <div class="carte-service">
+        <div class="icone">💎</div>
+        <h3>Programme Exclusif</h3>
+        <p>Accès prioritaire à notre sélection de biens rares, réservée à nos clients les plus fidèles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section alterne" style="text-align:center;">
+  <div class="conteneur">
+    <h2>Prêt à démarrer votre projet ?</h2>
+    <p style="max-width:520px;margin:0 auto 26px;">Contactez un agent Dynasty 8 dès aujourd'hui sur le Discord du serveur.</p>
+    <a href="#" id="lien-discord-cta" class="btn btn-or btn-large">Contacter Dynasty 8</a>
+  </div>
+</section>
+
+<footer class="pied-page" id="site-pied"></footer>
+
+<script src="/layout.js"></script>
+<script>
+  initialiserLayout("services");
+  const cta = document.getElementById("lien-discord-cta");
+  cta.href = LIEN_DISCORD; cta.target = "_blank"; cta.rel = "noopener";
+</script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dynasty 8 — Agence immobilière de Los Santos</title>
+<meta name="description" content="Dynasty 8, l'agence immobilière de référence à Los Santos : intérieurs, garages, cohérences et biens exclusifs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2L21 8V16L12 22L3 16V8L12 2Z%27 fill=%27%230a0b0d%27 stroke=%27%23c9a05a%27 stroke-width=%271.4%27/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="entete" id="site-entete"></header>
+
+<section class="hero">
+  <div class="hero-etiquette">★ L'excellence immobilière à Los Santos</div>
+  <h1>Trouvez le bien qui porte votre nom.</h1>
+  <p class="lead">Dynasty 8 accompagne les résidents de Los Santos dans l'achat, la location et la gestion de leurs intérieurs, garages et propriétés d'exception depuis leur arrivée en ville.</p>
+  <div class="hero-actions">
+    <a href="/exclusifs.html" class="btn btn-or btn-large">Voir les biens exclusifs</a>
+    <a href="#coups-de-coeur" class="btn btn-fantome btn-large">Nos coups de cœur</a>
+  </div>
+  <div class="hero-stats">
+    <div><strong id="stat-biens">—</strong><span>Biens au catalogue</span></div>
+    <div><strong>4</strong><span>Zones couvertes</span></div>
+    <div><strong>24/7</strong><span>Service agents</span></div>
+  </div>
+</section>
+
+<section class="section" id="coups-de-coeur">
+  <div class="conteneur">
+    <div class="section-entete">
+      <span class="etiquette">Sélection</span>
+      <h2>Nos coups de cœur</h2>
+      <p>Une sélection de biens mis en avant par nos agents cette semaine.</p>
+    </div>
+    <div class="carrousel-scroll" id="grille-coeur"></div>
+  </div>
+</section>
+
+<section class="section alterne">
+  <div class="conteneur">
+    <div class="section-entete">
+      <span class="etiquette">Découvrir</span>
+      <h2>Les cohérences de Los Santos</h2>
+      <p>Chaque secteur de la ville a sa propre identité. Cliquez sur une zone pour découvrir les biens disponibles.</p>
+    </div>
+    <div class="grille-zones" id="grille-zones-accueil">
+      <a class="carte-zone" href="/coherences.html?zone=Habitation">
+        <h3>Habitation</h3>
+        <p>Quartiers résidentiels calmes, proches des commerces et services.</p>
+        <span class="compte">Découvrir →</span>
+      </a>
+      <a class="carte-zone" href="/coherences.html?zone=Garage">
+        <h3>Garage</h3>
+        <p>Secteur dédié aux passionnés de mécanique et de collection.</p>
+        <span class="compte">Découvrir →</span>
+      </a>
+      <a class="carte-zone" href="/coherences.html?zone=Cayo">
+        <h3>Cayo</h3>
+        <p>Îles privées et villas isolées, loin de l'agitation de la ville.</p>
+        <span class="compte">Découvrir →</span>
+      </a>
+      <a class="carte-zone" href="/coherences.html?zone=Roxwood">
+        <h3>Roxwood</h3>
+        <p>Quartier d'affaires prisé par les entrepreneurs de la ville.</p>
+        <span class="compte">Découvrir →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="conteneur">
+    <div class="section-entete">
+      <span class="etiquette">Présentation</span>
+      <h2>Dynasty 8 en vidéo</h2>
+      <p>Découvrez notre agence, nos équipes et notre catalogue en images.</p>
+    </div>
+    <div class="cadre-video">
+      <iframe id="video-presentation" src="" title="Présentation Dynasty 8" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <p class="champ-aide" style="text-align:center;margin-top:14px;">Vidéo de démonstration — remplacez le lien dans <code>index.html</code> (recherchez <code>video-presentation</code>) par votre propre vidéo YouTube.</p>
+  </div>
+</section>
+
+<section class="section alterne">
+  <div class="conteneur" style="text-align:center;">
+    <span class="etiquette">Rejoignez-nous</span>
+    <h2 style="margin-top:10px;">Une question ? Un projet immobilier ?</h2>
+    <p style="max-width:520px;margin:0 auto 28px;">Nos agents sont disponibles sur le Discord officiel du serveur pour vous accompagner dans toutes vos démarches.</p>
+    <a href="#" id="lien-discord-cta" class="btn btn-or btn-large">Contacter Dynasty 8 sur Discord</a>
+  </div>
+</section>
+
+<footer class="pied-page" id="site-pied"></footer>
+
+<script src="/layout.js"></script>
+<script src="/biens.js"></script>
+<script>
+  initialiserLayout("accueil");
+  chargerBiens({ coupDeCoeur: true, cible: "grille-coeur", videMessage: "Aucun coup de cœur pour le moment. Ajoutez-en depuis l'espace agents." });
+
+  appelAPI("/api/biens").then((d) => {
+    document.getElementById("stat-biens").textContent = (d.biens || []).length;
+  }).catch(() => {});
+
+  // Remplacez PLACEHOLDER par l'identifiant de votre vidéo YouTube (la partie après "v=" dans son lien).
+  const idVideo = "PLACEHOLDER";
+  if (idVideo !== "PLACEHOLDER") {
+    document.getElementById("video-presentation").src = "https://www.youtube-nocookie.com/embed/" + idVideo;
+  } else {
+    document.querySelector(".cadre-video").innerHTML = '<div class="etat-vide" style="width:100%;">Emplacement réservé pour votre vidéo de présentation YouTube.</div>';
+  }
+
+  document.getElementById("lien-discord-cta").href = LIEN_DISCORD;
+  document.getElementById("lien-discord-cta").target = "_blank";
+  document.getElementById("lien-discord-cta").rel = "noopener";
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Dynasty 8</title>
+<meta name="description" content="Questions fréquentes sur les services immobiliers de Dynasty 8.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27%3E%3Cpath d=%27M12 2L21 8V16L12 22L3 16V8L12 2Z%27 fill=%27%230a0b0d%27 stroke=%27%23c9a05a%27 stroke-width=%271.4%27/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="entete" id="site-entete"></header>
+
+<section class="hero" style="padding:70px 24px 50px;">
+  <div class="hero-etiquette">? FAQ</div>
+  <h1>Questions fréquentes</h1>
+  <p class="lead">Retrouvez les réponses aux questions les plus posées par nos clients.</p>
+</section>
+
+<section class="section serre">
+  <div class="conteneur" style="max-width:760px;">
+    <div id="accordeon"></div>
+    <p class="champ-aide" style="text-align:center;margin-top:24px;">Contenu de démonstration — modifiez les questions dans <code>faq.html</code> selon les règles réelles de votre serveur.</p>
+  </div>
+</section>
+
+<footer class="pied-page" id="site-pied"></footer>
+
+<script src="/layout.js"></script>
+<script>
+  initialiserLayout("faq");
+
+  const FAQ = [
+    { q: "Comment acheter un bien avec Dynasty 8 ?", r: "Parcourez notre catalogue en ligne, repérez le bien qui vous intéresse puis contactez un agent sur le Discord du serveur pour finaliser l'achat en jeu." },
+    { q: "Puis-je louer un bien pour une courte durée ?", r: "Oui, certains intérieurs et garages sont proposés à la location à la semaine. Le type de transaction est indiqué directement sur chaque annonce." },
+    { q: "Qu'est-ce qu'une « cohérence » ?", r: "Une cohérence désigne une zone thématique de la ville (Habitation, Garage, Cayo, Roxwood...) à laquelle un bien est rattaché, afin de faciliter votre recherche par secteur." },
+    { q: "Comment devenir agent chez Dynasty 8 ?", r: "Le recrutement se fait directement via le Discord du serveur. Contactez la direction de l'agence pour connaître les conditions en vigueur." },
+    { q: "Les prix affichés sont-ils fixes ?", r: "Les prix indiqués sont ceux pratiqués au catalogue. Ils peuvent être ajustés par un agent en fonction de la situation de votre personnage." },
+  ];
+
+  document.getElementById("accordeon").innerHTML = FAQ.map((item, i) => `
+    <div class="accordeon-item" data-i="${i}">
+      <button class="accordeon-question">${item.q}<span class="chevron">⌄</span></button>
+      <div class="accordeon-reponse"><p>${item.r}</p></div>
+    </div>`).join("");
+
+  document.querySelectorAll(".accordeon-question").forEach((btn) => {
+    btn.addEventListener("click", () => btn.parentElement.classList.toggle("ouvert"));
+  });
+</script>
+</body>
+</html>
