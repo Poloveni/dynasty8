@@ -17,11 +17,8 @@ const LIENS_NAV = [
   { href: "/faq.html", texte: "FAQ", cle: "faq" },
 ];
 
-function logoSVG() {
-  return `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M12 2L21 8V16L12 22L3 16V8L12 2Z" stroke="#c9a05a" stroke-width="1.4"/>
-    <path d="M12 2V22M3 8L12 12L21 8M3 16L12 12L21 16" stroke="#c9a05a" stroke-width="1"/>
-  </svg>`;
+function logoImg(cssClass) {
+  return `<img src="/img/logo-full.png" alt="Dynasty 8" class="${cssClass || ""}">`;
 }
 
 function injecterEntete(cleActive) {
@@ -32,7 +29,7 @@ function injecterEntete(cleActive) {
   ).join("");
   monte.innerHTML = `
     <div class="entete-barre">
-      <a href="/" class="logo">${logoSVG()}Dynasty<span class="huit">8</span></a>
+      <a href="/" class="logo">${logoImg("logo-entete")}</a>
       <nav class="nav-principale" id="nav-mobile">${liens}</nav>
       <div class="nav-cta">
         <button class="bouton-menu" id="bouton-menu" aria-label="Ouvrir le menu">☰</button>
@@ -52,7 +49,7 @@ function injecterPied() {
     <div class="conteneur">
       <div class="pied-grille">
         <div>
-          <a href="/" class="logo" style="margin-bottom:14px;">${logoSVG()}Dynasty<span class="huit">8</span></a>
+          <a href="/" class="logo" style="margin-bottom:14px;">${logoImg("logo-pied")}</a>
           <p>Agence immobilière officielle de Los Santos. Intérieurs, garages et propriétés d'exception pour tous les résidents du serveur.</p>
         </div>
         <div>
